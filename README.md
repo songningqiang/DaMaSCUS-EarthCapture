@@ -1,63 +1,56 @@
-[![Documentation Status](https://readthedocs.org/projects/damascus/badge/?version=latest)](http://damascus.readthedocs.io/en/latest/?badge=latest)
-[![Build Status](https://travis-ci.com/temken/DaMaSCUS.svg?branch=master)](https://travis-ci.com/temken/DaMaSCUS)
-[![codecov](https://codecov.io/gh/temken/DaMaSCUS/branch/master/graph/badge.svg)](https://codecov.io/gh/temken/DaMaSCUS)
-  
-# DaMaSCUS
+# DaMaSCUS-EarthCapture
 
-Dark Matter Simulation Code for Underground Scatterings
+This is a code to compute the fraction of dark matter that is captured inside the Earth through spin-independent or spin-dependent scattering.
 
-<a href="http://ascl.net/1706.003"><img src="https://img.shields.io/badge/ascl-1706.003-blue.svg?colorB=262255" alt="ascl:1706.003" /></a>
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3726878.svg)](https://doi.org/10.5281/zenodo.3726878)
-[![arXiv](https://img.shields.io/badge/arXiv-1706.02249-B31B1B.svg)](https://arxiv.org/abs/1706.02249)
+## Instructions for DaMaSCUS-EarthCapture
 
-DaMaSCUS Version 1.1 25/03/2020
+The code is developed based on [DaMaSCUS](https://github.com/temken/DaMaSCUS). The main code is located in the src/simulation and src/simulation_SD folders.
 
-<img src="https://cloud.githubusercontent.com/assets/29034913/26834962/4092f75c-4ad7-11e7-86db-a359734ea2ef.png" width="425">
+Requirements:
+- openmpi
+- eigen3
+- boost
 
-## GENERAL NOTES
+To run the code for spin-independent interactions,
+```
+mpirun -n NCPU ./DaMaSCUS-Simulator config.cfg mDM xs Nsim 
+```
+where the different parameters are:
+- NCPU: number of processors in computation.
+- config.cfg: the configuration file.
+- mass: the mass of dark matter in MeV.
+- xs: dark matter-nucleon scattering cross section in pb.
+- Nsim: total number of dark matter particles to be simulated.
 
-For the underlying physics we refer to the paper [![arXiv](https://img.shields.io/badge/arXiv-1706.02249-B31B1B.svg)](https://arxiv.org/abs/1706.02249).
+If mass, xs, or Nsim is not specified, their values will be set by the corresponding entries in config.cfg.
+If mpi error is encounter, one can try
+```
+ export TMPDIR=/tmp before the run
+ ```
+ before the run.
+ 
+ To run the code for spin-dependent interactions,
+ ```
+mpirun -n NCPU ./DaMaSCUS-SD config.cfg mDM xs Nsim 
+```
+It is also possible to set proton-only or neutron-only scattering in src/simulation_SD/PREM.cpp with
+```
+#define ap 0
+```
+or
+```
+#define an 0
+```
+To get rid of the solar gravitational acceleration of dark matter velocity, simply set 
+```
+double vsunEarth=0;
+```
+in IC_Generator.cpp.
 
-- DaMaSCUS is a MC simulator of dark matter particles as they move through the Earth and scatter on terrestrial nuclei. 
-- It allows to compute the local distortions of the DM phase space caused by collisions with nuclei. 
-- The thusly distorted distribution functions and densities are used to give precise estimates of time-dependent signal rates for direct detection experiments and diurnal modulations.
-- A full, realistic model of the Earth is implemented as well as the Earth's time-dependent velocity and orientation in the galactic frame.
-- DaMaSCUS is written in C++ and fully parallelized (openMPI).
+## Using the code:
 
-## INSTALLATION AND USAGE
+Feel free to use, modify or distribute the code. If you use the code in your publication, please cite the paper [...](...)
 
-For installation and usage we refer to the [documentation](http://damascus.readthedocs.io/en/latest/).
+In addition, please cite the original DaMaSCUS code [https://github.com/temken/DaMaSCUS](https://github.com/temken/DaMaSCUS)
 
-## Updates
-The code will be updated continuously. Here I list only important updates and major bug fixes 
-- `25.03.2020`: Release of v1.1
-- `16.08.2017`: Release of v1.0.2: Re-structuring of the folder structure and new documentation.
-- `15.06.2017`: Release of v1.0.1: major bug fix concerning mostly very high cross-sections.
-- `06.06.2017`: Release of v1.0
-
-## CITING DaMaSCUS
-
-If you decide to use this code, please cite
-
->Emken, T. & Kouvaris, C., 2017, DaMaSCUS, Astrophysics Source Code Library, record [[ascl:1706.003]](https://ascl.net/1706.003)
-
-as well as the original publication,
-
->Emken, T. & Kouvaris, C., DaMaSCUS: The Impact of Underground Scatterings on Direct Detection of Light Dark Matter,
-[![JCAP](https://img.shields.io/badge/JCAP-1710(2017)no.10,031-255773.svg)](http://iopscience.iop.org/article/10.1088/1475-7516/2017/10/031/meta), 
-[![arXiv](https://img.shields.io/badge/arXiv-1706.02249-B31B1B.svg)](https://arxiv.org/abs/1706.02249)
-
-In addition, version 1.1 of the code is archived under
-
-> [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3726878.svg)](https://doi.org/10.5281/zenodo.3726878)
-
-## AUTHORS & CONTACT
-
-The authors of DaMaSCUS are Timon Emken and Chris Kouvaris.
-
-For questions, bug reports or other suggestions please contact Timon Emken (emken@chalmers.se).
-
-
-## LICENSE
-
-This project is licensed under the MIT License - see the LICENSE file.
+For questions or suggestions, please contact Ningqiang Song [ningqiang.song@liverpool.ac.uk](ningqiang.song@liverpool.ac.uk)
