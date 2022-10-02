@@ -25,7 +25,7 @@ where the different parameters are:
 If mass, xs, or Nsim is not specified, their values will be set by the corresponding entries in config.cfg.
 If mpi error is encounter, one can try
 ```
- export TMPDIR=/tmp before the run
+ export TMPDIR=/tmp 
  ```
  before the run.
  
