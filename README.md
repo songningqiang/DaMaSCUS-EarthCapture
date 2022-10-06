@@ -49,7 +49,7 @@ in IC_Generator.cpp.
 
 ## Using the code:
 
-Feel free to use, modify or distribute the code. If you use the code in your publication, please cite the paper [...](...)
+Feel free to use, modify or distribute the code. If you use the code in your publication, please cite the paper [2210.01812](https://arxiv.org/pdf/2210.01812.pdf).
 
 In addition, please cite the original DaMaSCUS code [https://github.com/temken/DaMaSCUS](https://github.com/temken/DaMaSCUS)
 
