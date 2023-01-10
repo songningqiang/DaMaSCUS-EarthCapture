@@ -11,8 +11,9 @@ Requirements:
 - eigen3
 - boost
 
-To run the code for spin-independent interactions,
+To run the code for spin-independent interactions, under the main directory,
 ```
+cd bin/
 mpirun -n NCPU ./DaMaSCUS-Simulator config.cfg mDM xs Nsim 
 ```
 where the different parameters are:
